@@ -2,6 +2,7 @@ import {
     getValue,
     isValidInputTimeValue
 } from "@testing-library/user-event/dist/utils";
+import { Console } from "console";
 
 /**
  * Consume an array of numbers, and return a new array containing
@@ -61,7 +62,13 @@ export const removeDollars = (amounts: string[]): number[] => {
  * in question marks ("?").
  */
 export const shoutIfExclaiming = (messages: string[]): string[] => {
-    return [];
+    messages = messages.filter(
+        (value: string): boolean => !value.endsWith("?")
+    );
+    const exclaimedMessages = messages.map((value: string): string =>
+        value.endsWith("!") ? value.toUpperCase() : value
+    );
+    return exclaimedMessages;
 };
 
 /**
