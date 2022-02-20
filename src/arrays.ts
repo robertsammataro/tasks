@@ -1,3 +1,8 @@
+import {
+    getValue,
+    isValidInputTimeValue
+} from "@testing-library/user-event/dist/utils";
+
 /**
  * Consume an array of numbers, and return a new array containing
  * JUST the first and last number. If there are no elements, return
@@ -29,7 +34,10 @@ export function tripleNumbers(numbers: number[]): number[] {
  * the number cannot be parsed as an integer, convert it to 0 instead.
  */
 export function stringsToIntegers(numbers: string[]): number[] {
-    return [];
+    const numbersOnly = numbers.map((value: string): number =>
+        isNaN(Number(value)) ? 0 : Number(value)
+    );
+    return numbersOnly;
 }
 
 /**
