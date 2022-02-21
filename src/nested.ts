@@ -1,3 +1,4 @@
+import { idText } from "typescript";
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
 
@@ -84,7 +85,12 @@ export function sumPoints(questions: Question[]): number {
  * Consumes an array of questions and returns the sum total of the PUBLISHED questions.
  */
 export function sumPublishedPoints(questions: Question[]): number {
-    return 0;
+    const sum: number = questions.reduce(
+        (currentTotal: number, question: Question) =>
+            currentTotal + question.points * Number(question.published),
+        0
+    );
+    return sum;
 }
 
 /***
@@ -105,7 +111,21 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
-    return "";
+    const stringifiedValues: string[] = questions.map(
+        (question: Question): string =>
+            question.id.toString() +
+            "," +
+            question.name +
+            "," +
+            question.options.length.toString() +
+            "," +
+            question.points.toString() +
+            "," +
+            question.published
+    );
+    const toReturn: string =
+        "id,name,options,points,published\n" + stringifiedValues.join("\n");
+    return toReturn;
 }
 
 /**
