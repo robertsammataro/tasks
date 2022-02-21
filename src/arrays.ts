@@ -115,7 +115,10 @@ export function makeMath(addends: number[]): string {
         (currentTotal: number, num: number) => currentTotal + num,
         0
     );
-    return "";
+
+    const math = addends.join("+");
+
+    return sum + "=" + math;
 }
 
 /**
@@ -128,5 +131,45 @@ export function makeMath(addends: number[]): string {
  * And the array [1, 9, 7] would become [1, 9, 7, 17]
  */
 export function injectPositive(values: number[]): number[] {
-    return [];
+    //Gets index of first negative number
+    const firstNegativeIndex = values.findIndex(
+        (value: number): boolean => value < 0
+    );
+
+    //Hard Copy
+    const beforeNegative = [...values];
+    const afterMutation = [...values];
+
+    console.log(values);
+
+    if (firstNegativeIndex === -1) {
+        const sum = beforeNegative.reduce(
+            (currentTotal: number, num: number) => currentTotal + num,
+            0
+        );
+        beforeNegative.push(sum);
+        return beforeNegative;
+    }
+
+    console.log(values);
+
+    //Remove first negative index and all elements after.
+    beforeNegative.splice(
+        firstNegativeIndex,
+        beforeNegative.length - firstNegativeIndex,
+        0
+    );
+
+    console.log(values);
+
+    //Get total of numbers before the first negative
+    const sum = beforeNegative.reduce(
+        (currentTotal: number, num: number) => currentTotal + num,
+        0
+    );
+
+    afterMutation.splice(firstNegativeIndex + 1, 0, sum);
+    console.log(values);
+
+    return afterMutation;
 }
