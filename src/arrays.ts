@@ -134,8 +134,6 @@ export function injectPositive(values: number[]): number[] {
     const beforeNegative = [...values];
     const afterMutation = [...values];
 
-    console.log(values);
-
     if (firstNegativeIndex === -1) {
         const sum = beforeNegative.reduce(
             (currentTotal: number, num: number) => currentTotal + num,
@@ -145,16 +143,12 @@ export function injectPositive(values: number[]): number[] {
         return beforeNegative;
     }
 
-    console.log(values);
-
     //Remove first negative index and all elements after.
     beforeNegative.splice(
         firstNegativeIndex,
         beforeNegative.length - firstNegativeIndex,
         0
     );
-
-    console.log(values);
 
     //Get total of numbers before the first negative
     const sum = beforeNegative.reduce(
@@ -163,7 +157,6 @@ export function injectPositive(values: number[]): number[] {
     );
 
     afterMutation.splice(firstNegativeIndex + 1, 0, sum);
-    console.log(values);
 
     return afterMutation;
 }
