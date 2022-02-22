@@ -19,7 +19,6 @@ export function getPublishedQuestions(questions: Question[]): Question[] {
  * `expected`, and an empty array for its `options`.
  */
 export function getNonEmptyQuestions(questions: Question[]): Question[] {
-    console.log(questions);
     const nonEmptyQuestions = questions.filter(
         (question: Question): boolean =>
             question.body !== "" ||
@@ -224,12 +223,38 @@ export function renameQuestionById(
  * AND if the `newQuestionType` is no longer "multiple_choice_question" than the `options`
  * must be set to an empty list.
  */
+
 export function changeQuestionTypeById(
     questions: Question[],
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    const newQuestions = [...questions];
+    const targetQuestionId = newQuestions.findIndex(
+        (question: Question): boolean => question.id === targetId
+    );
+
+    console.log(targetId);
+    console.log(newQuestionType);
+    console.log(newQuestions[targetQuestionId]);
+
+    if (
+        newQuestions[targetQuestionId].type === "multiple_choice_question" &&
+        newQuestionType !== "multiple_choice_question"
+    ) {
+        newQuestions[targetQuestionId] = {
+            ...newQuestions[targetQuestionId],
+            type: newQuestionType
+        };
+        newQuestions[targetQuestionId].options = [];
+    } else {
+        newQuestions[targetQuestionId] = {
+            ...newQuestions[targetQuestionId],
+            type: newQuestionType
+        };
+    }
+
+    return newQuestions;
 }
 
 /**
@@ -248,6 +273,9 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ) {
+    return [];
+}
+/**{
     const newArray = [...questions];
     const targetQuestionIndex = newArray.findIndex(
         (question: Question): boolean => question.id === targetId
@@ -259,7 +287,7 @@ export function editOption(
         newArray[targetQuestionIndex].options[targetOptionIndex] = newOption;
     }
     return newArray;
-}
+}*/
 
 /***
  * Consumes an array of questions, and produces a new array based on the original array.
@@ -272,5 +300,16 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    return [];
+    const newArray = [...questions];
+    const targetQuestionIndex = newArray.findIndex(
+        (question: Question): boolean => question.id === targetId
+    );
+    const duplicatedQuestion = {
+        ...newArray[targetQuestionIndex],
+        name: "Copy of " + newArray[targetQuestionIndex].name,
+        published: false,
+        id: newId
+    };
+    newArray.splice(targetQuestionIndex + 1, 0, duplicatedQuestion);
+    return newArray;
 }
