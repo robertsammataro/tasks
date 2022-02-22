@@ -24,7 +24,7 @@ export function getNonEmptyQuestions(questions: Question[]): Question[] {
         (question: Question): boolean =>
             question.body !== "" ||
             question.expected !== "" ||
-            question.options.length > 0 //Why is this line not working the way I'm expecting it to?
+            question.options.length > 0
     );
     return nonEmptyQuestions;
 }
@@ -134,8 +134,15 @@ export function toCSV(questions: Question[]): string {
  * making the `text` an empty string, and using false for both `submitted` and `correct`.
  */
 export function makeAnswers(questions: Question[]): Answer[] {
-    //const answerList = questions.map((question: Question): Answer => questionId: question.id, text: "", submitted: false, correct: false);
-    return [];
+    const answerList = questions.map(
+        (question: Question): Answer => ({
+            questionId: question.id,
+            text: "",
+            submitted: false,
+            correct: false
+        })
+    );
+    return answerList;
 }
 
 /***
