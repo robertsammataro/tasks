@@ -274,10 +274,6 @@ export function editOption(
         (question: Question): boolean => question.id === targetId
     );
 
-    console.log(newQuestions);
-    console.log(newQuestions[targetQuestionIndex]);
-    console.log(newQuestions[0].options);
-
     const targetQuestion = newQuestions[targetQuestionIndex];
     if (targetOptionIndex === -1) {
         const newOptionsArray = [...newQuestions[targetQuestionIndex].options];
