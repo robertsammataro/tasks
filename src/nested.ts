@@ -234,10 +234,6 @@ export function changeQuestionTypeById(
         (question: Question): boolean => question.id === targetId
     );
 
-    console.log(targetId);
-    console.log(newQuestionType);
-    console.log(newQuestions[targetQuestionId]);
-
     if (
         newQuestions[targetQuestionId].type === "multiple_choice_question" &&
         newQuestionType !== "multiple_choice_question"
@@ -273,21 +269,33 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ) {
-    return [];
-}
-/**{
-    const newArray = [...questions];
-    const targetQuestionIndex = newArray.findIndex(
+    const newQuestions = [...questions];
+    const targetQuestionIndex = newQuestions.findIndex(
         (question: Question): boolean => question.id === targetId
     );
 
+    console.log(newQuestions);
+    console.log(newQuestions[targetQuestionIndex]);
+    console.log(newQuestions[0].options);
+
+    const targetQuestion = newQuestions[targetQuestionIndex];
     if (targetOptionIndex === -1) {
-        newArray[targetQuestionIndex].options.push(newOption);
+        const newOptionsArray = [...newQuestions[targetQuestionIndex].options];
+        newOptionsArray.push(newOption);
+        newQuestions[targetQuestionIndex] = {
+            ...newQuestions[targetQuestionIndex],
+            options: newOptionsArray
+        };
     } else {
-        newArray[targetQuestionIndex].options[targetOptionIndex] = newOption;
+        const newOptions = [...targetQuestion.options];
+        newOptions[targetOptionIndex] = newOption;
+        newQuestions[targetQuestionIndex] = {
+            ...newQuestions[targetQuestionIndex],
+            options: newOptions
+        };
     }
-    return newArray;
-}*/
+    return newQuestions;
+}
 
 /***
  * Consumes an array of questions, and produces a new array based on the original array.
