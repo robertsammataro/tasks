@@ -24,7 +24,7 @@ export function getNonEmptyQuestions(questions: Question[]): Question[] {
         (question: Question): boolean =>
             question.body !== "" ||
             question.expected !== "" ||
-            question.options !== [] //Why is this line not working the way I'm expecting it to?
+            question.options.length > 0 //Why is this line not working the way I'm expecting it to?
     );
     return nonEmptyQuestions;
 }
@@ -204,19 +204,6 @@ export function renameQuestionById(
                 : { ...question }
     );
 
-    /**
-    const withoutTargetID = questions.filter(
-        (question: Question): boolean => question.id !== targetId
-    );
-    let withID = questions.filter(
-        (question: Question): boolean => question.id === targetId
-    );
-
-    withID = withID.map(
-        (question: Question): Question => ({ ...question, name: newName })
-    );
-    */
-
     return newQuestions;
 }
 
@@ -251,7 +238,17 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ) {
-    return [];
+    const newArray = [...questions];
+    const targetQuestionIndex = newArray.findIndex(
+        (question: Question): boolean => question.id === targetId
+    );
+
+    if (targetOptionIndex === -1) {
+        newArray[targetQuestionIndex].options.push(newOption);
+    } else {
+        newArray[targetQuestionIndex].options[targetOptionIndex] = newOption;
+    }
+    return newArray;
 }
 
 /***
