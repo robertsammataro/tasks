@@ -12,10 +12,8 @@ export function d6(): number {
 }
 
 export function TwoDice(): JSX.Element {
-    const [dice1number, updateDice1Number] = useState<number>(d6());
-    const [dice2number, updateDice2Number] = useState<number>(
-        (dice1number % 6) + 1 //Ensures you don't have your values go above 6!
-    );
+    const [dice1number, updateDice1Number] = useState<number>(1);
+    const [dice2number, updateDice2Number] = useState<number>(2);
 
     function changeDice1Number(): void {
         updateDice1Number(d6());
@@ -36,7 +34,15 @@ export function TwoDice(): JSX.Element {
                 <span data-testid="left-die">{dice1number} </span>
                 <span data-testid="right-die">{dice2number}</span>
             </p>
-            {dice1number === dice2number ? <span>Win</span> : <span>Lose</span>}
+            {dice1number === dice2number ? (
+                dice1number === 1 ? (
+                    <span>Lose</span>
+                ) : (
+                    <span>Win</span>
+                )
+            ) : (
+                <span></span>
+            )}
         </div>
     );
 }
