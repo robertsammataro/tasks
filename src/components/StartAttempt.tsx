@@ -20,6 +20,7 @@ export function StartAttempt(): JSX.Element {
 
     return (
         <div>
+            <p>{remainingAttempts}</p>
             <p>
                 <Button
                     onClick={startNewAttempt}
