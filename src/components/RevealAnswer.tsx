@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
 export function RevealAnswer(): JSX.Element {
-    const [visible, setVisibility] = useState<boolean>(true);
+    const [visible, setVisibility] = useState<boolean>(false);
 
     function changeVisibility(): void {
         setVisibility(!visible);
