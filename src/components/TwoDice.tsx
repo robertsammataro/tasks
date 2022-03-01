@@ -23,6 +23,18 @@ export function TwoDice(): JSX.Element {
         updateDice2Number(d6());
     }
 
+    function generatePrintStatement(): string {
+        if (dice1number === dice2number) {
+            if (dice1number === 1) {
+                return "Lose";
+            } else {
+                return "Win";
+            }
+        } else {
+            return "";
+        }
+    }
+
     return (
         <div>
             <p>
@@ -34,15 +46,7 @@ export function TwoDice(): JSX.Element {
                 <span data-testid="left-die">{dice1number} </span>
                 <span data-testid="right-die">{dice2number}</span>
             </p>
-            {dice1number === dice2number ? (
-                dice1number === 1 ? (
-                    <span>Lose</span>
-                ) : (
-                    <span>Win</span>
-                )
-            ) : (
-                <span></span>
-            )}
+            {generatePrintStatement()}
         </div>
     );
 }
