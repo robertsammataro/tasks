@@ -40,6 +40,7 @@ export function CycleHoliday(): JSX.Element {
         }
     }
 
+    //USA Emoji didn't work so I used the firework one instead
     function convertCurrentHoliday(): string {
         if (currentHoliday === "christmas") {
             return "🎅";
