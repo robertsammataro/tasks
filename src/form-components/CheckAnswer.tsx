@@ -18,15 +18,11 @@ export function CheckAnswer({
     return (
         <div>
             <h3>Check Answer</h3>
-            <div>{expectedAnswer}</div>
             <Form.Group controlId="formCheckAnswer">
                 <Form.Label>Enter Your Answer:</Form.Label>
                 <Form.Control value={userInput} onChange={changeUserInput} />
             </Form.Group>
-            <div>
-                Your answer is{" "}
-                {userInput === expectedAnswer ? "correct" : "incorrect"}
-            </div>
+            <div>{userInput === expectedAnswer ? "✔️" : "❌"}</div>
         </div>
     );
 }
