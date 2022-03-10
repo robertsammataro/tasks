@@ -32,8 +32,9 @@ export function ChangeColor(): JSX.Element {
                     <Form.Check
                         inline
                         type="radio"
-                        name="response"
+                        name="colors"
                         onChange={updateCurrentColor}
+                        id={"colors-" + color}
                         key={color}
                         style={{ backgroundColor: color }}
                         label={color}
