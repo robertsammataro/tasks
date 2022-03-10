@@ -5,8 +5,8 @@ type ChangeEvent = React.ChangeEvent<
 >;
 
 export function GiveAttempts(): JSX.Element {
-    const [remaining, setRemaining] = useState<number>(1);
-    const [numberInput, setNumberBox] = useState<number>(0);
+    const [remaining, setRemaining] = useState<number>(3);
+    const [numberInput, setNumberBox] = useState<string>("0");
 
     function addAttempts(toAdd: number) {
         setRemaining(remaining + toAdd);
@@ -22,14 +22,16 @@ export function GiveAttempts(): JSX.Element {
                     type="number"
                     value={numberInput}
                     onChange={(event: ChangeEvent) =>
-                        setNumberBox(parseInt(event.target.value))
+                        setNumberBox(event.target.value)
                     }
                 />
             </Form.Group>
             <Button onClick={() => addAttempts(-1)} disabled={remaining === 0}>
                 use
             </Button>
-            <Button onClick={() => addAttempts(numberInput)}>gain</Button>
+            <Button onClick={() => addAttempts(parseInt(numberInput) || 0)}>
+                gain
+            </Button>
         </div>
     );
 }

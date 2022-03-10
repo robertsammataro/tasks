@@ -35,6 +35,7 @@ export function ChangeColor(): JSX.Element {
                         name="response"
                         onChange={updateCurrentColor}
                         key={color}
+                        style={{ backgroundColor: color }}
                         label={color}
                         value={color}
                         checked={currentColor === color}
