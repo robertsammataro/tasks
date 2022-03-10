@@ -41,9 +41,12 @@ export function ChangeColor(): JSX.Element {
                     />
                 ))}
             </Form.Group>
-            <div data-testid="colored-box">
+            <div>
                 You have chosen{" "}
-                <span style={{ backgroundColor: currentColor }}>
+                <span
+                    data-testid="colored-box"
+                    style={{ backgroundColor: currentColor }}
+                >
                     {currentColor}
                 </span>
             </div>
