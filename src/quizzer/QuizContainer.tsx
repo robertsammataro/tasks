@@ -8,9 +8,18 @@ export function QuizContainer({ quiz }: { quiz: Quiz }): JSX.Element {
     const [quizEditMode, changeQuizEditMode] = useState<boolean>(false);
     const [questions, changeQuestions] = useState<Question[]>(quiz.questions);
     const [isVisible, setVisible] = useState<boolean>(false);
+    const [showUnpublished, setShowUnpublished] = useState<boolean>(true);
 
     function changeVisible() {
         setVisible(!isVisible);
+    }
+
+    function changePublishedVisibility() {
+        setShowUnpublished(!showUnpublished);
+    }
+
+    function resetAnswers() {
+        changeQuestions([...quiz.questions]);
     }
 
     return (
@@ -57,11 +66,30 @@ export function QuizContainer({ quiz }: { quiz: Quiz }): JSX.Element {
             {/** Actually renders the QuizResponse objects as long as the state
              *   is set to visible.
              */}
-
+            {isVisible && (
+                <div style={{ textAlign: "left", marginLeft: "20px" }}>
+                    <Button onClick={changePublishedVisibility}>
+                        {showUnpublished
+                            ? "Hide Unpublished"
+                            : "Show Unpublished"}
+                    </Button>
+                    {"\t"}
+                    <Button onClick={resetAnswers}>Reset Answers</Button>
+                </div>
+            )}
             {isVisible &&
                 questions.map((question: Question) => (
                     <div key={question.id}>
-                        <QuizResponse question={question}></QuizResponse>
+                        {showUnpublished || question.published === true ? (
+                            <div>
+                                <hr></hr>
+                                <QuizResponse
+                                    question={question}
+                                ></QuizResponse>
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
                     </div>
                 ))}
             <hr></hr>

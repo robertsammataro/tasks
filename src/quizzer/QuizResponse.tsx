@@ -19,16 +19,17 @@ export function QuizResponse({
     }
 
     return (
-        <div>
+        <div style={{ paddingLeft: "20px" }}>
             {/* Header of the Question Container*/}
-            <hr></hr>
             <div style={{ textAlign: "left" }}>
                 <h5>
                     {question.name +
                         (answer === question.expected ? "✅" : "❌")}
                 </h5>
-                <p>{"Number of Points: " + question.points}</p>
-                <p>{question.body}</p>
+                <p>
+                    {"Number of Points: " + question.points} <br></br>{" "}
+                    <strong>{question.body}</strong>
+                </p>
             </div>
 
             {/* Conditional to determine whether the multiple choice 
@@ -50,14 +51,14 @@ export function QuizResponse({
                     ))}
                 </Form.Group>
             ) : (
-                <Form.Group controlId="formShortAnswer" as={Row}>
-                    <Form.Label column sm={2}>
-                        Answer:
-                    </Form.Label>
+                <Form.Group
+                    controlId="formShortAnswer"
+                    as={Row}
+                    style={{ marginRight: "20px" }}
+                >
                     <Col>
                         <Form.Control value={answer} onChange={updateAnswer} />
                     </Col>
-                    <Col></Col>
                 </Form.Group>
             )}
         </div>

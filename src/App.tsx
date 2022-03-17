@@ -90,6 +90,10 @@ function App(): JSX.Element {
             <Quizzer></Quizzer>
             <QuizContainer quiz={myQuiz}></QuizContainer>
 
+            {/** ========================================
+             *   STUFF BELOW THIS LINE IS JUST OLD WORK!!
+             *   ========================================*/}
+
             <div style={{ marginTop: "20px" }}>
                 <Button onClick={updatePastWorkVisibility}>
                     Show/Hide Past Work
