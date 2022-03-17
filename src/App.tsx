@@ -21,6 +21,7 @@ import { Question } from "./interfaces/question";
 import myImage from "./project_outline.jpg";
 import { QuizContainer } from "./quizzer/QuizContainer";
 import { Quiz } from "./interfaces/quiz";
+import { Button } from "react-bootstrap";
 
 function App(): JSX.Element {
     const [imageVisible, setImageVisible] = useState<boolean>(false);
@@ -30,7 +31,7 @@ function App(): JSX.Element {
         setImageVisible(!imageVisible);
     }
 
-    function updatePastWorkVisible() {
+    function updatePastWorkVisibility() {
         setPastWorkVisible(!pastWorkVisible);
     }
 
@@ -70,10 +71,68 @@ function App(): JSX.Element {
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript - Robby Sammataro
             </header>
-            <img src={myImage} width="800" />
+
+            {/** Add a button to show/hide the layout sketch so it doesn't
+             *   get in the way of things!
+             */}
+            <div style={{ marginTop: "20px" }}>
+                <Button onClick={updateImageVisibility}>
+                    Show/Hide Layout Sketch
+                </Button>
+                {imageVisible && (
+                    <div>
+                        <br></br>
+                        <img src={myImage} width="800" />
+                    </div>
+                )}
+            </div>
 
             <Quizzer></Quizzer>
             <QuizContainer quiz={myQuiz}></QuizContainer>
+
+            <div style={{ marginTop: "20px" }}>
+                <Button onClick={updatePastWorkVisibility}>
+                    Show/Hide Past Work
+                </Button>
+                {pastWorkVisible && (
+                    <div>
+                        <br></br>
+                        <hr></hr>
+                        <CheckAnswer expectedAnswer="42"></CheckAnswer>
+                        <hr></hr>
+                        <GiveAttempts></GiveAttempts>
+                        <hr></hr>
+                        <EditMode></EditMode>
+                        <hr></hr>
+                        <ChangeColor></ChangeColor>
+                        <hr></hr>
+                        <MultipleChoiceQuestion
+                            options={["a", "b", "c"]}
+                            expectedAnswer="b"
+                        ></MultipleChoiceQuestion>
+                        <hr></hr>
+                        {<DoubleHalf></DoubleHalf>}
+                        <hr></hr>
+                        <ChooseTeam></ChooseTeam>
+                        <hr></hr>
+                        <ColoredBox></ColoredBox>
+                        <hr></hr>
+                        <ShoveBox></ShoveBox>
+                        <hr></hr>
+                        <Counter></Counter>
+                        <hr />
+                        <RevealAnswer></RevealAnswer>
+                        <hr />
+                        <StartAttempt></StartAttempt>
+                        <hr />
+                        <TwoDice></TwoDice>
+                        <hr />
+                        <ChangeType></ChangeType>
+                        <hr />
+                        <CycleHoliday></CycleHoliday>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
