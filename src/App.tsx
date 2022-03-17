@@ -18,6 +18,8 @@ import { ChangeColor } from "./form-components/ChangeColor";
 import { Quizzer } from "./quizzer/Quizzer";
 import { QuizResponse } from "./quizzer/QuizResponse";
 import { Question } from "./interfaces/question";
+import myImage from "./project_outline.jpg";
+import { QuizContainer } from "./quizzer/QuizContainer";
 
 function App(): JSX.Element {
     const myQuestion: Question = {
@@ -31,15 +33,17 @@ function App(): JSX.Element {
         published: false
     };
 
+    const myQuestionList = [myQuestion];
+
     return (
         <div className="App">
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript - Robby Sammataro
             </header>
+            <img src={myImage} width="800" />
 
             <Quizzer></Quizzer>
-            <QuizResponse question={myQuestion}></QuizResponse>
-            <hr></hr>
+            <QuizContainer input_questions={myQuestionList}></QuizContainer>
         </div>
     );
 }
