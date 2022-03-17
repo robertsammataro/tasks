@@ -17,15 +17,28 @@ import { MultipleChoiceQuestion } from "./form-components/MultipleChoiceQuestion
 import { ChangeColor } from "./form-components/ChangeColor";
 import { Quizzer } from "./quizzer/Quizzer";
 import { QuizResponse } from "./quizzer/QuizResponse";
+import { Question } from "./interfaces/question";
 
 function App(): JSX.Element {
+    const myQuestion: Question = {
+        id: 1234,
+        name: "Question 1",
+        body: "What is the best animal?",
+        type: "short_answer_question",
+        options: ["orca", "other"],
+        expected: "orca",
+        points: 100,
+        published: false
+    };
+
     return (
         <div className="App">
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript - Robby Sammataro
             </header>
+
             <Quizzer></Quizzer>
-            <QuizResponse></QuizResponse>
+            <QuizResponse question={myQuestion}></QuizResponse>
             <hr></hr>
         </div>
     );
