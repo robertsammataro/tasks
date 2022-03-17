@@ -20,11 +20,15 @@ export function QuizResponse({
 
     return (
         <div>
+            {/* Header of the Question Container*/}
             <h5>
                 {question.name + (answer === question.expected ? "✅" : "❌")}
             </h5>
             <p>{"Number of Points: " + question.points}</p>
             <p>{question.body}</p>
+
+            {/* Conditional to determine whether the multiple choice 
+            or open ended response box gets shown to the user*/}
             {question.type === "multiple_choice_question" ? (
                 <Form.Group controlId="formMultipleChoice">
                     {question.options.map((response: string) => (
