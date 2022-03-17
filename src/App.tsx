@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { ChangeType } from "./components/ChangeType";
 import { RevealAnswer } from "./components/RevealAnswer";
@@ -20,10 +20,22 @@ import { QuizResponse } from "./quizzer/QuizResponse";
 import { Question } from "./interfaces/question";
 import myImage from "./project_outline.jpg";
 import { QuizContainer } from "./quizzer/QuizContainer";
+import { Quiz } from "./interfaces/quiz";
 
 function App(): JSX.Element {
-    const myQuestion: Question = {
-        id: 1234,
+    const [imageVisible, setImageVisible] = useState<boolean>(false);
+    const [pastWorkVisible, setPastWorkVisible] = useState<boolean>(false);
+
+    function updateImageVisibility() {
+        setImageVisible(!imageVisible);
+    }
+
+    function updatePastWorkVisible() {
+        setPastWorkVisible(!pastWorkVisible);
+    }
+
+    const animalQuestion: Question = {
+        id: 1,
         name: "Question 1",
         body: "What is the best animal?",
         type: "short_answer_question",
@@ -33,7 +45,25 @@ function App(): JSX.Element {
         published: false
     };
 
-    const myQuestionList = [myQuestion];
+    const pokemonQuestion: Question = {
+        id: 2,
+        name: "Question 2",
+        body: "What is Robby's favorite pokemon?",
+        type: "multiple_choice_question",
+        options: ["lugia", "pikachu", "arcanine", "ditto"],
+        expected: "lugia",
+        points: 100,
+        published: false
+    };
+
+    const myQuestionList = [animalQuestion, pokemonQuestion];
+
+    const myQuiz: Quiz = {
+        id: 12345,
+        name: "Robby's First Quiz",
+        questions: myQuestionList,
+        description: "Simple quiz to make sure that this thing really works!"
+    };
 
     return (
         <div className="App">
@@ -43,7 +73,7 @@ function App(): JSX.Element {
             <img src={myImage} width="800" />
 
             <Quizzer></Quizzer>
-            <QuizContainer input_questions={myQuestionList}></QuizContainer>
+            <QuizContainer quiz={myQuiz}></QuizContainer>
         </div>
     );
 }
