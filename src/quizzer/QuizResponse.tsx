@@ -195,7 +195,7 @@ export function QuizResponse({
                                 />
                             </Col>
                         </Form.Group>
-                        {question.type === "multiple_choice_question" && (
+                        {editTypeValue === "multiple_choice_question" && (
                             <Form.Group as={Row}>
                                 <Col>
                                     <Form.Label>Options:</Form.Label>
