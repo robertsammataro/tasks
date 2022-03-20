@@ -57,7 +57,18 @@ function App(): JSX.Element {
         published: false
     };
 
-    const myQuestionList = [animalQuestion, pokemonQuestion];
+    const shapeQuestion: Question = {
+        id: 3,
+        name: "Question 3",
+        body: "What shape has three sides?",
+        type: "multiple_choice_question",
+        options: ["square", "circle", "triangle", "octagon"],
+        expected: "triangle",
+        points: 100,
+        published: false
+    };
+
+    const myQuestionList = [animalQuestion, pokemonQuestion, shapeQuestion];
 
     const myQuiz: Quiz = {
         id: 12345,
@@ -65,6 +76,8 @@ function App(): JSX.Element {
         questions: myQuestionList,
         description: "Simple quiz to make sure that this thing really works!"
     };
+
+    const quizArray: Quiz[] = [myQuiz];
 
     return (
         <div className="App">
@@ -87,8 +100,7 @@ function App(): JSX.Element {
                 )}
             </div>
 
-            <Quizzer></Quizzer>
-            <QuizContainer quiz={myQuiz}></QuizContainer>
+            <Quizzer quizArray={quizArray}></Quizzer>
 
             {/** ========================================
              *   STUFF BELOW THIS LINE IS JUST OLD WORK!!

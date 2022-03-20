@@ -4,11 +4,36 @@ import { Question } from "../interfaces/question";
 import { Quiz } from "../interfaces/quiz";
 import { QuizResponse } from "./QuizResponse";
 
-export function QuizContainer({ quiz }: { quiz: Quiz }): JSX.Element {
+interface QuizContainerProps {
+    quiz: Quiz;
+    quizzes: Quiz[];
+    setQuizzes: (newQuizzes: Quiz[]) => void;
+}
+
+interface QuizResponseProps {
+    question: Question;
+    questionArray: Question[];
+    changeQuestions: (newQuestions: Question[]) => void;
+    quizEditMode: boolean;
+}
+
+export function QuizContainer({
+    quiz,
+    quizzes,
+    setQuizzes
+}: QuizContainerProps): JSX.Element {
     const [quizEditMode, changeQuizEditMode] = useState<boolean>(false);
     const [questions, changeQuestions] = useState<Question[]>(quiz.questions);
     const [isVisible, setVisible] = useState<boolean>(false);
     const [showUnpublished, setShowUnpublished] = useState<boolean>(true);
+
+    function removeQuiz() {
+        const newQuizzes = [...quizzes];
+        newQuizzes.filter(
+            (currentQuiz: Quiz): boolean => currentQuiz.name !== quiz.name
+        );
+        console.log(newQuizzes);
+    }
 
     function changeVisible() {
         setVisible(!isVisible);
@@ -60,6 +85,15 @@ export function QuizContainer({ quiz }: { quiz: Quiz }): JSX.Element {
                     }}
                 >
                     <Button onClick={changeVisible}>Show/Hide</Button>
+                    {"   "}
+                    <Button
+                        style={{
+                            backgroundColor: "red"
+                        }}
+                        onClick={removeQuiz}
+                    >
+                        Delete
+                    </Button>
                 </Col>
             </Form.Group>
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { Question } from "../interfaces/question";
 
 type ChangeEvent = React.ChangeEvent<
@@ -19,13 +19,28 @@ export function QuizResponse({
     }
 
     return (
-        <div style={{ paddingLeft: "20px" }}>
+        <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
             {/* Header of the Question Container*/}
             <div style={{ textAlign: "left" }}>
-                <h5>
-                    {question.name +
-                        (answer === question.expected ? "✅" : "❌")}
-                </h5>
+                <Form.Group as={Row}>
+                    <Col>
+                        <h5>
+                            {question.name +
+                                (answer === question.expected ? "✅" : "❌")}
+                        </h5>
+                    </Col>
+
+                    {/** Button to clear answer for a QuizResponse object*/}
+                    <Col
+                        style={{
+                            textAlign: "right"
+                        }}
+                    >
+                        <Button onClick={() => setAnswer("")}>
+                            Clear Response
+                        </Button>
+                    </Col>
+                </Form.Group>
                 <p>
                     {"Number of Points: " + question.points} <br></br>{" "}
                     <strong>{question.body}</strong>
