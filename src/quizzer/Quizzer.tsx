@@ -11,7 +11,7 @@ export function Quizzer({ quizArray }: { quizArray: Quiz[] }): JSX.Element {
             name: "New Quiz",
             id: 0,
             questions: [],
-            description: "New Quiz"
+            description: "Sample Description"
         };
 
         setQuizzes([...quizzes, newQuiz]);
@@ -25,16 +25,18 @@ export function Quizzer({ quizArray }: { quizArray: Quiz[] }): JSX.Element {
                     <h2>Available Quizzes:</h2>
                 </Col>
                 <Col style={{ textAlign: "right", paddingRight: "20px" }}>
-                    <Button onClick={addEmptyQuiz}>+</Button>
+                    <Button onClick={addEmptyQuiz}>Add Quiz</Button>
                 </Col>
             </Form.Group>
             {quizzes.map((quiz: Quiz) => (
-                <QuizContainer
-                    key={quiz.id}
-                    quiz={quiz}
-                    quizzes={quizzes}
-                    setQuizzes={setQuizzes}
-                ></QuizContainer>
+                <div data-testid="quiz-container" key={quiz.id}>
+                    <QuizContainer
+                        data-testid="quiz-container"
+                        quiz={quiz}
+                        quizzes={quizzes}
+                        setQuizzes={setQuizzes}
+                    ></QuizContainer>
+                </div>
             ))}
         </div>
     );
