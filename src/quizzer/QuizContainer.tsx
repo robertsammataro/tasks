@@ -38,8 +38,20 @@ export function QuizContainer({
         setShowUnpublished(!showUnpublished);
     }
 
-    function resetAnswers() {
-        changeQuestions([...quiz.questions]);
+    function addEmptyQuestion() {
+        const newQuestion: Question = {
+            id: 0,
+            name: "New Question",
+            body: "New Question",
+            type: "short_answer_question",
+            options: ["Option A", "Option B"],
+            expected: "Default Answer",
+            points: 0,
+            published: false
+        };
+
+        const questionsCopy = [...questions, newQuestion];
+        changeQuestions(questionsCopy);
     }
 
     return (
@@ -79,7 +91,9 @@ export function QuizContainer({
                         marginRight: "20px"
                     }}
                 >
-                    <Button onClick={changeVisible}>Show/Hide</Button>
+                    <Button onClick={changeVisible}>
+                        {isVisible ? "Hide" : "Show"}
+                    </Button>
                     {"   "}
                     <Button
                         style={{
@@ -102,8 +116,16 @@ export function QuizContainer({
                             ? "Hide Unpublished"
                             : "Show Unpublished"}
                     </Button>
-                    {"\t"}
-                    <Button onClick={resetAnswers}>Reset Answers</Button>
+                    {"   "}
+                    <Button
+                        style={{
+                            backgroundColor: "green",
+                            borderColor: "green"
+                        }}
+                        onClick={addEmptyQuestion}
+                    >
+                        New Question
+                    </Button>
                 </div>
             )}
             {isVisible &&

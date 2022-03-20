@@ -76,6 +76,17 @@ export function QuizResponse({
         }
     }
 
+    function deleteQuestion() {
+        const newQuestions: Question[] = [...questionArray];
+        const outputQuestions: Question[] = [];
+        newQuestions.map((currentQuestion: Question) => {
+            currentQuestion.name !== question.name
+                ? outputQuestions.push(currentQuestion)
+                : "";
+        });
+        changeQuestions(outputQuestions);
+    }
+
     return (
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
             {/* Header of the Question Container*/}
@@ -103,6 +114,16 @@ export function QuizResponse({
                         <Button onClick={() => setEditMode(!editMode)}>
                             Edit
                         </Button>
+                        {"   "}
+                        <Button
+                            style={{
+                                backgroundColor: "red",
+                                borderColor: "red"
+                            }}
+                            onClick={deleteQuestion}
+                        >
+                            Delete
+                        </Button>
                     </Col>
                 </Form.Group>
                 <p>
@@ -114,7 +135,10 @@ export function QuizResponse({
             {/* Conditional to determine whether the multiple choice 
             or open ended response box gets shown to the user*/}
             {question.type === "multiple_choice_question" ? (
-                <Form.Group controlId="formMultipleChoice">
+                <Form.Group
+                    controlId="formMultipleChoice"
+                    style={{ paddingLeft: "20px", paddingRight: "20px" }}
+                >
                     {question.options.map((response: string) => (
                         <Form.Check
                             inline
