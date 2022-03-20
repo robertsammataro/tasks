@@ -10,13 +10,6 @@ interface QuizContainerProps {
     setQuizzes: (newQuizzes: Quiz[]) => void;
 }
 
-interface QuizResponseProps {
-    question: Question;
-    questionArray: Question[];
-    changeQuestions: (newQuestions: Question[]) => void;
-    quizEditMode: boolean;
-}
-
 export function QuizContainer({
     quiz,
     quizzes,
@@ -28,11 +21,14 @@ export function QuizContainer({
     const [showUnpublished, setShowUnpublished] = useState<boolean>(true);
 
     function removeQuiz() {
-        const newQuizzes = [...quizzes];
-        newQuizzes.filter(
-            (currentQuiz: Quiz): boolean => currentQuiz.name !== quiz.name
-        );
-        console.log(newQuizzes);
+        const newQuizzes: Quiz[] = [...quizzes];
+        const outputQuizzes: Quiz[] = [];
+        newQuizzes.map((currentQuiz: Quiz) => {
+            currentQuiz.name !== quiz.name
+                ? outputQuizzes.push(currentQuiz)
+                : "";
+        });
+        setQuizzes(outputQuizzes);
     }
 
     function changeVisible() {

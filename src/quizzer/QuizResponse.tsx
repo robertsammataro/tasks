@@ -6,6 +6,13 @@ type ChangeEvent = React.ChangeEvent<
     HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
 >;
 
+interface QuizResponseProps {
+    question: Question;
+    questionArray: Question[];
+    changeQuestions: (newQuestions: Question[]) => void;
+    quizEditMode: boolean;
+}
+
 //Takes in a question and displays the window to the website
 export function QuizResponse({
     question
