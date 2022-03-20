@@ -87,6 +87,38 @@ export function QuizResponse({
         changeQuestions(outputQuestions);
     }
 
+    function moveUp() {
+        const oldIndex = questionArray.findIndex(
+            (currentQuestion: Question): boolean =>
+                currentQuestion.id === question.id
+        );
+        if (oldIndex != 0) {
+            const newQuestions = questionArray.filter(
+                (currentQuestion: Question): boolean =>
+                    currentQuestion.id !== question.id
+            );
+
+            newQuestions.splice(oldIndex - 1, 0, question);
+            changeQuestions(newQuestions);
+        }
+    }
+
+    function moveDown() {
+        const oldIndex = questionArray.findIndex(
+            (currentQuestion: Question): boolean =>
+                currentQuestion.id === question.id
+        );
+        if (oldIndex != questionArray.length - 1) {
+            const newQuestions = questionArray.filter(
+                (currentQuestion: Question): boolean =>
+                    currentQuestion.id !== question.id
+            );
+
+            newQuestions.splice(oldIndex + 1, 0, question);
+            changeQuestions(newQuestions);
+        }
+    }
+
     return (
         <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
             {/* Header of the Question Container*/}
@@ -107,9 +139,25 @@ export function QuizResponse({
                             textAlign: "right"
                         }}
                     >
-                        <Button onClick={() => setAnswer("")}>
-                            Clear Response
+                        <Button
+                            onClick={moveUp}
+                            style={{
+                                backgroundColor: "white",
+                                borderColor: "white"
+                            }}
+                        >
+                            ⬆️
                         </Button>
+                        <Button
+                            onClick={moveDown}
+                            style={{
+                                backgroundColor: "white",
+                                borderColor: "white"
+                            }}
+                        >
+                            ⬇️
+                        </Button>
+                        <Button onClick={() => setAnswer("")}>Clear</Button>
                         {"   "}
                         <Button onClick={() => setEditMode(!editMode)}>
                             Edit
@@ -131,7 +179,6 @@ export function QuizResponse({
                     <strong>{question.body}</strong>
                 </p>
             </div>
-
             {/* Conditional to determine whether the multiple choice 
             or open ended response box gets shown to the user*/}
             {question.type === "multiple_choice_question" ? (
@@ -164,7 +211,6 @@ export function QuizResponse({
                     </Col>
                 </Form.Group>
             )}
-
             {/**Draw the edit fields if in edit mode
              *
              * This probably could've been its own component but it would have also
