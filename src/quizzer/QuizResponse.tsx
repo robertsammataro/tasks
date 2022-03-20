@@ -191,7 +191,7 @@ export function QuizResponse({
                             inline
                             key={question.id + "_" + response}
                             type="radio"
-                            name="response"
+                            name={question.id.toString()}
                             onChange={updateAnswer}
                             id={response}
                             label={response}

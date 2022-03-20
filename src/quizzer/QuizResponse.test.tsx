@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { QuizResponse } from "./QuizResponse";
 import { Question } from "../interfaces/question";
+import { Quiz } from "../interfaces/quiz";
 
 describe("QuizResponse Component tests", () => {
     const myQuestion: Question = {
@@ -13,6 +14,13 @@ describe("QuizResponse Component tests", () => {
         expected: "orca",
         points: 100,
         published: false
+    };
+
+    const myQuiz: Quiz = {
+        name: "Testing Quiz",
+        id: 1,
+        questions: [myQuestion],
+        description: "This is a test quiz for the testing functions"
     };
 
     /**
