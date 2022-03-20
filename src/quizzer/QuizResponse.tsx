@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Question } from "../interfaces/question";
+import { Question, QuestionType } from "../interfaces/question";
 
 type ChangeEvent = React.ChangeEvent<
     HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
@@ -24,7 +24,9 @@ export function QuizResponse({
     //State to control the editMode components
     const [editNameValue, setEditNameValue] = useState<string>(question.name);
     const [editBodyValue, setEditBodyValue] = useState<string>(question.body);
-    const [editTypeValue, setEditTypeValue] = useState<string>(question.type);
+    const [editTypeValue, setEditTypeValue] = useState<QuestionType>(
+        question.type
+    );
     const [editPointsValue, setEditPointsValue] = useState<number>(
         question.points
     );
@@ -44,7 +46,26 @@ export function QuizResponse({
 
     function updateFields() {
         setEditMode(false);
-        console.log("test");
+
+        const newArray = [...questionArray];
+        const newQuestion: Question = {
+            id: question.id,
+            name: editNameValue,
+            body: editBodyValue,
+            type: editTypeValue,
+            options: editOptionsValue.split(", "),
+            expected: editExpectedValue,
+            points: editPointsValue,
+            published: editPublishedValue
+        };
+
+        const current_id: number = question.id;
+        const newIndex: number = newArray.findIndex(
+            (question: Question): boolean => question.id === current_id
+        );
+
+        newArray.splice(newIndex, 1, newQuestion);
+        changeQuestions(newArray);
     }
 
     function updateType() {
