@@ -15,7 +15,6 @@ export function QuizContainer({
     quizzes,
     setQuizzes
 }: QuizContainerProps): JSX.Element {
-    const [quizEditMode, changeQuizEditMode] = useState<boolean>(false);
     const [questions, changeQuestions] = useState<Question[]>(quiz.questions);
     const [isVisible, setVisible] = useState<boolean>(false);
     const [showUnpublished, setShowUnpublished] = useState<boolean>(true);
@@ -115,6 +114,8 @@ export function QuizContainer({
                                 <hr></hr>
                                 <QuizResponse
                                     question={question}
+                                    questionArray={questions}
+                                    changeQuestions={changeQuestions}
                                 ></QuizResponse>
                             </div>
                         ) : (

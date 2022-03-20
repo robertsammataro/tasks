@@ -10,19 +10,49 @@ interface QuizResponseProps {
     question: Question;
     questionArray: Question[];
     changeQuestions: (newQuestions: Question[]) => void;
-    quizEditMode: boolean;
 }
 
 //Takes in a question and displays the window to the website
 export function QuizResponse({
-    question
-}: {
-    question: Question;
-}): JSX.Element {
+    question,
+    questionArray,
+    changeQuestions
+}: QuizResponseProps): JSX.Element {
     const [answer, setAnswer] = useState<string>("");
+    const [editMode, setEditMode] = useState<boolean>(false);
+
+    //State to control the editMode components
+    const [editNameValue, setEditNameValue] = useState<string>(question.name);
+    const [editBodyValue, setEditBodyValue] = useState<string>(question.body);
+    const [editTypeValue, setEditTypeValue] = useState<string>(question.type);
+    const [editPointsValue, setEditPointsValue] = useState<number>(
+        question.points
+    );
+    const [editOptionsValue, setEditOptionsValue] = useState<string>(
+        question.options.join(", ")
+    );
+    const [editPublishedValue, setEditPublishedValue] = useState<boolean>(
+        question.published
+    );
+    const [editExpectedValue, setEditExpectedValue] = useState<string>(
+        question.expected
+    );
 
     function updateAnswer(event: ChangeEvent) {
         setAnswer(event.target.value);
+    }
+
+    function updateFields() {
+        setEditMode(false);
+        console.log("test");
+    }
+
+    function updateType() {
+        if (editTypeValue === "short_answer_question") {
+            setEditTypeValue("multiple_choice_question");
+        } else {
+            setEditTypeValue("short_answer_question");
+        }
     }
 
     return (
@@ -37,7 +67,9 @@ export function QuizResponse({
                         </h5>
                     </Col>
 
-                    {/** Button to clear answer for a QuizResponse object*/}
+                    {/** Button to clear answer for a QuizResponse object
+                     *   and to trigger edit mode for this question
+                     */}
                     <Col
                         style={{
                             textAlign: "right"
@@ -45,6 +77,10 @@ export function QuizResponse({
                     >
                         <Button onClick={() => setAnswer("")}>
                             Clear Response
+                        </Button>
+                        {"   "}
+                        <Button onClick={() => setEditMode(!editMode)}>
+                            Edit
                         </Button>
                     </Col>
                 </Form.Group>
@@ -82,6 +118,146 @@ export function QuizResponse({
                         <Form.Control value={answer} onChange={updateAnswer} />
                     </Col>
                 </Form.Group>
+            )}
+
+            {/**Draw the edit fields if in edit mode
+             *
+             * This probably could've been its own component but it would have also
+             * been a lot of state to pass around and I didn't feel like messing with
+             * that, sorry!
+             */}
+            {editMode && (
+                <div>
+                    <br></br>
+                    <Form.Group
+                        style={{ textAlign: "left", paddingLeft: "20px" }}
+                    >
+                        <Form.Group as={Row}>
+                            <Col>
+                                <Form.Label>Question Name:</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control
+                                    value={editNameValue}
+                                    onChange={(event: ChangeEvent) =>
+                                        setEditNameValue(event.target.value)
+                                    }
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                            <Col>
+                                <Form.Label>Number of Points:</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control
+                                    type="number"
+                                    value={editPointsValue}
+                                    onChange={(event: ChangeEvent) =>
+                                        setEditPointsValue(
+                                            parseInt(event.target.value) || 0
+                                        )
+                                    }
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                            <Col>
+                                <Form.Label>Question Body:</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control
+                                    value={editBodyValue}
+                                    onChange={(event: ChangeEvent) =>
+                                        setEditBodyValue(event.target.value)
+                                    }
+                                />
+                            </Col>
+                        </Form.Group>
+                        {question.type === "multiple_choice_question" && (
+                            <Form.Group as={Row}>
+                                <Col>
+                                    <Form.Label>Options:</Form.Label>
+                                </Col>
+                                <Col>
+                                    <Form.Control
+                                        value={editOptionsValue}
+                                        onChange={(event: ChangeEvent) =>
+                                            setEditOptionsValue(
+                                                event.target.value
+                                            )
+                                        }
+                                    />
+                                </Col>
+                            </Form.Group>
+                        )}
+                        <Form.Group as={Row}>
+                            <Col>
+                                <Form.Label>Published:</Form.Label>
+                            </Col>
+                            <Col>
+                                <Button
+                                    onClick={() =>
+                                        setEditPublishedValue(
+                                            !editPublishedValue
+                                        )
+                                    }
+                                >
+                                    {editPublishedValue ? "Yes" : "No"}
+                                </Button>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                            <Col>
+                                <Form.Label>Question Type:</Form.Label>
+                            </Col>
+                            <Col>
+                                <Button onClick={updateType}>
+                                    {editTypeValue ===
+                                    "multiple_choice_question"
+                                        ? "Multiple Choice Question"
+                                        : "Short Answer Question"}
+                                </Button>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                            <Col>
+                                <Form.Label>
+                                    Expected Answer (Case Sensitive):
+                                </Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control
+                                    value={editExpectedValue}
+                                    onChange={(event: ChangeEvent) =>
+                                        setEditExpectedValue(event.target.value)
+                                    }
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group>
+                            <Button
+                                style={{
+                                    backgroundColor: "green",
+                                    borderColor: "green"
+                                }}
+                                onClick={() => updateFields()}
+                            >
+                                Save
+                            </Button>
+                            {"   "}
+                            <Button
+                                style={{
+                                    backgroundColor: "red",
+                                    borderColor: "red"
+                                }}
+                                onClick={() => setEditMode(false)}
+                            >
+                                Cancel
+                            </Button>
+                        </Form.Group>
+                    </Form.Group>
+                </div>
             )}
         </div>
     );
