@@ -55,7 +55,7 @@ export function QuizContainer({
     }
 
     return (
-        <div>
+        <div type-id="quiz-container-object">
             {/** This is what draws and formats the header at the top of the QuizContainer()
              *   it displays:
              *
