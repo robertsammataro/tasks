@@ -3,10 +3,39 @@
 > react-scripts test "--coverage"
 
 PASS src/nested.test.ts
+PASS src/quizzer/Quizzer.test.tsx
+  ● Console
+
+    console.error
+      Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+          at p
+          at p
+          at span
+          at div
+          at /home/runner/work/tasks/tasks/node_modules/react-bootstrap/cjs/Col.js:72:8
+          at div
+          at /home/runner/work/tasks/tasks/node_modules/react-bootstrap/cjs/Row.js:22:3
+          at /home/runner/work/tasks/tasks/node_modules/react-bootstrap/cjs/FormGroup.js:19:3
+          at div
+          at QuizContainer (/home/runner/work/tasks/tasks/src/quizzer/QuizContainer.tsx:14:5)
+          at div
+          at div
+          at Quizzer (/home/runner/work/tasks/tasks/src/quizzer/Quizzer.tsx:6:27)
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateDOMNesting (node_modules/react-dom/cjs/react-dom.development.js:10083:7)
+      at createInstance (node_modules/react-dom/cjs/react-dom.development.js:10181:5)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19464:28)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+
 PASS src/arrays.test.ts
 PASS src/objects.test.ts
 PASS src/components/StartAttempt.test.tsx
 PASS src/components/TwoDice.test.tsx
+PASS src/quizzer/QuizResponse.test.tsx
 PASS src/form-components/MultipleChoiceQuestion.test.tsx
 PASS src/bad-components/ChooseTeam.test.tsx
 PASS src/bad-components/DoubleHalf.test.tsx
@@ -22,12 +51,41 @@ PASS src/components/RevealAnswer.test.tsx
 PASS src/bad-components/ColoredBox.test.tsx
 PASS src/bad-components/ShoveBox.test.tsx
 PASS src/App.test.tsx
+  ● Console
+
+    console.error
+      Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>.
+          at p
+          at p
+          at span
+          at div
+          at /home/runner/work/tasks/tasks/node_modules/react-bootstrap/cjs/Col.js:72:8
+          at div
+          at /home/runner/work/tasks/tasks/node_modules/react-bootstrap/cjs/Row.js:22:3
+          at /home/runner/work/tasks/tasks/node_modules/react-bootstrap/cjs/FormGroup.js:19:3
+          at div
+          at QuizContainer (/home/runner/work/tasks/tasks/src/quizzer/QuizContainer.tsx:14:5)
+          at div
+          at div
+          at Quizzer (/home/runner/work/tasks/tasks/src/quizzer/Quizzer.tsx:6:27)
+          at div
+          at App (/home/runner/work/tasks/tasks/src/App.tsx:25:45)
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateDOMNesting (node_modules/react-dom/cjs/react-dom.development.js:10083:7)
+      at createInstance (node_modules/react-dom/cjs/react-dom.development.js:10181:5)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19464:28)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+
 -----------------------------|---------|----------|---------|---------|-------------------
 File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -----------------------------|---------|----------|---------|---------|-------------------
-All files                    |     100 |       99 |     100 |     100 |                   
- src                         |     100 |      100 |     100 |     100 |                   
-  App.tsx                    |     100 |      100 |     100 |     100 |                   
+All files                    |   99.46 |    96.42 |   98.75 |   99.45 |                   
+ src                         |    98.9 |    96.29 |   97.14 |   98.88 |                   
+  App.tsx                    |   81.81 |       50 |   33.33 |   81.81 | 29-33             
   arrays.ts                  |     100 |      100 |     100 |     100 |                   
   functions.ts               |     100 |      100 |     100 |     100 |                   
   nested.ts                  |     100 |      100 |     100 |     100 |                   
@@ -53,10 +111,15 @@ All files                    |     100 |       99 |     100 |     100 |
  src/interfaces              |       0 |        0 |       0 |       0 |                   
   answer.ts                  |       0 |        0 |       0 |       0 |                   
   question.ts                |       0 |        0 |       0 |       0 |                   
+  quiz.ts                    |       0 |        0 |       0 |       0 |                   
+ src/quizzer                 |     100 |    94.44 |     100 |     100 |                   
+  QuizContainer.tsx          |     100 |    92.85 |     100 |     100 | 26                
+  QuizResponse.tsx           |     100 |    95.45 |     100 |     100 | 269               
+  Quizzer.tsx                |     100 |      100 |     100 |     100 |                   
 -----------------------------|---------|----------|---------|---------|-------------------
 
-Test Suites: 20 passed, 20 total
-Tests:       134 passed, 134 total
+Test Suites: 22 passed, 22 total
+Tests:       160 passed, 160 total
 Snapshots:   0 total
-Time:        13.428 s
+Time:        14.9 s
 Ran all test suites.
