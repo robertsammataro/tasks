@@ -120,7 +120,10 @@ export function QuizResponse({
     }
 
     return (
-        <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+        <div
+            data-testid="quiz-response"
+            style={{ paddingLeft: "20px", paddingRight: "20px" }}
+        >
             {/* Header of the Question Container*/}
             <div style={{ textAlign: "left" }}>
                 <Form.Group as={Row}>
@@ -157,9 +160,17 @@ export function QuizResponse({
                         >
                             ⬇️
                         </Button>
-                        <Button onClick={() => setAnswer("")}>Clear</Button>
+                        <Button
+                            data-testid="clear-button"
+                            onClick={() => setAnswer("")}
+                        >
+                            Clear
+                        </Button>
                         {"   "}
-                        <Button onClick={() => setEditMode(!editMode)}>
+                        <Button
+                            data-testid="edit-button"
+                            onClick={() => setEditMode(!editMode)}
+                        >
                             Edit
                         </Button>
                         {"   "}
@@ -168,6 +179,7 @@ export function QuizResponse({
                                 backgroundColor: "red",
                                 borderColor: "red"
                             }}
+                            data-testid="delete-question-button"
                             onClick={deleteQuestion}
                         >
                             Delete
@@ -207,7 +219,11 @@ export function QuizResponse({
                     style={{ marginRight: "20px" }}
                 >
                     <Col>
-                        <Form.Control value={answer} onChange={updateAnswer} />
+                        <Form.Control
+                            data-testid="text-entry-box"
+                            value={answer}
+                            onChange={updateAnswer}
+                        />
                     </Col>
                 </Form.Group>
             )}
@@ -229,6 +245,7 @@ export function QuizResponse({
                             </Col>
                             <Col>
                                 <Form.Control
+                                    data-testid="question-edit-box"
                                     value={editNameValue}
                                     onChange={(event: ChangeEvent) =>
                                         setEditNameValue(event.target.value)
@@ -242,6 +259,7 @@ export function QuizResponse({
                             </Col>
                             <Col>
                                 <Form.Control
+                                    data-testid="points-edit-box"
                                     type="number"
                                     value={editPointsValue}
                                     onChange={(event: ChangeEvent) =>
@@ -258,6 +276,7 @@ export function QuizResponse({
                             </Col>
                             <Col>
                                 <Form.Control
+                                    data-testid="body-edit-box"
                                     value={editBodyValue}
                                     onChange={(event: ChangeEvent) =>
                                         setEditBodyValue(event.target.value)
@@ -272,6 +291,7 @@ export function QuizResponse({
                                 </Col>
                                 <Col>
                                     <Form.Control
+                                        data-testid="options-edit-box"
                                         value={editOptionsValue}
                                         onChange={(event: ChangeEvent) =>
                                             setEditOptionsValue(
@@ -288,6 +308,7 @@ export function QuizResponse({
                             </Col>
                             <Col>
                                 <Button
+                                    data-testid="published-edit-button"
                                     onClick={() =>
                                         setEditPublishedValue(
                                             !editPublishedValue
@@ -303,7 +324,10 @@ export function QuizResponse({
                                 <Form.Label>Question Type:</Form.Label>
                             </Col>
                             <Col>
-                                <Button onClick={updateType}>
+                                <Button
+                                    data-testid="type-edit-button"
+                                    onClick={updateType}
+                                >
                                     {editTypeValue ===
                                     "multiple_choice_question"
                                         ? "Multiple Choice Question"
@@ -319,6 +343,7 @@ export function QuizResponse({
                             </Col>
                             <Col>
                                 <Form.Control
+                                    data-testid="expected-edit-box"
                                     value={editExpectedValue}
                                     onChange={(event: ChangeEvent) =>
                                         setEditExpectedValue(event.target.value)
@@ -333,6 +358,7 @@ export function QuizResponse({
                                     borderColor: "green"
                                 }}
                                 onClick={() => updateFields()}
+                                data-testid="save-button"
                             >
                                 Save
                             </Button>
@@ -343,6 +369,7 @@ export function QuizResponse({
                                     borderColor: "red"
                                 }}
                                 onClick={() => setEditMode(false)}
+                                data-testid="cancel-button"
                             >
                                 Cancel
                             </Button>

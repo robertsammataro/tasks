@@ -91,11 +91,15 @@ export function QuizContainer({
                         marginRight: "20px"
                     }}
                 >
-                    <Button onClick={changeVisible}>
+                    <Button
+                        data-testid="visible-button"
+                        onClick={changeVisible}
+                    >
                         {isVisible ? "Hide" : "Show"}
                     </Button>
                     {"   "}
                     <Button
+                        data-testid="delete-button"
                         style={{
                             backgroundColor: "red"
                         }}
@@ -111,7 +115,10 @@ export function QuizContainer({
              */}
             {isVisible && (
                 <div style={{ textAlign: "left", marginLeft: "20px" }}>
-                    <Button onClick={changePublishedVisibility}>
+                    <Button
+                        data-testid="filter-published-button"
+                        onClick={changePublishedVisibility}
+                    >
                         {showUnpublished
                             ? "Hide Unpublished"
                             : "Show Unpublished"}
@@ -122,6 +129,7 @@ export function QuizContainer({
                             backgroundColor: "green",
                             borderColor: "green"
                         }}
+                        data-testid="new-question-button"
                         onClick={addEmptyQuestion}
                     >
                         New Question
