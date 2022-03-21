@@ -88,12 +88,36 @@ function App(): JSX.Element {
              */}
             <div style={{ marginTop: "20px" }}>
                 <Button onClick={updateImageVisibility}>
-                    Show/Hide Layout Sketch
+                    Show/Hide Sketch and Feature List
                 </Button>
                 {imageVisible && (
                     <div>
                         <br></br>
                         <img src={myImage} width="800" />
+                        <div>
+                            <h4>Application Functions:</h4>
+                            <ul
+                                style={{
+                                    textAlign: "left",
+                                    paddingLeft: "35%"
+                                }}
+                            >
+                                <li>Application Sketch</li>
+                                <li>Quizzes are visible</li>
+                                <li>Quizzes have questions</li>
+                                <li>At least two types of questions</li>
+                                <li>Check correctness</li>
+                                <li>Clear Answers</li>
+                                <li>Publish/Unpublish Questions</li>
+                                <li>Filter Published/Unpublished Questions</li>
+                                <li>Edit Questions</li>
+                                <li>Add Questions</li>
+                                <li>Delete Questions</li>
+                                <li>Reorder Questions</li>
+                                <li>Add Quizzes</li>
+                                <li>Delete Quizzes</li>
+                            </ul>
+                        </div>
                     </div>
                 )}
             </div>
