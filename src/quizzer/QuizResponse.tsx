@@ -148,6 +148,7 @@ export function QuizResponse({
                                 backgroundColor: "white",
                                 borderColor: "white"
                             }}
+                            data-testid="move-up-button"
                         >
                             ⬆️
                         </Button>
@@ -157,6 +158,7 @@ export function QuizResponse({
                                 backgroundColor: "white",
                                 borderColor: "white"
                             }}
+                            data-testid="move-down-button"
                         >
                             ⬇️
                         </Button>

@@ -153,19 +153,6 @@ describe("Quizzer Tests", () => {
         expect(question3).toBeInTheDocument();
     });
 
-    test("Check to see if editing the name field works", () => {
-        const showButton = screen.getByTestId("visible-button");
-        showButton.click();
-        const editButton = screen.getAllByTestId("edit-button");
-        editButton[0].click();
-        const questionTitleBox = screen.getAllByRole("textbox");
-        userEvent.type(questionTitleBox[1], "My New Question");
-        const saveButton = screen.getByTestId("save-button");
-        saveButton.click();
-        const newAnswer = screen.getByText("Question 1My New Question❌");
-        expect(newAnswer).toBeInTheDocument();
-    });
-
     test("Check to see if the published button works", () => {
         const showButton = screen.getByTestId("visible-button");
         showButton.click();
@@ -201,15 +188,147 @@ describe("Quizzer Tests", () => {
         expect(optionButtons.length).toBe(10);
     });
 
-    {
-        /** ADD A UNIT TEST TO SHOW THAT MOVEUP AND MOVEDOWN ARE WORKING
-    test("Check to make sure the right number of points are shown", () => {
-        const visibleButton = screen.getByTestId("visible-button");
-        visibleButton.click();
-        const pointDisplay = screen.queryAllByText("100");
-        expect(pointDisplay.length).toBe(3);
-
+    test("Check to see if chaning the type of question twice works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const typeButton = screen.getByTestId("type-edit-button");
+        typeButton.click();
+        typeButton.click();
+        const onScreenTextboxes = screen.getAllByRole("textbox");
+        expect(onScreenTextboxes.length).toBe(4);
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const optionButtons = screen.getAllByRole("radio");
+        expect(optionButtons.length).toBe(8);
     });
-     */
-    }
+
+    test("Check to see if Move Up button works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const originalOrder = screen.queryByText(
+            "Question 1Question 2Question 3"
+        );
+        const originalOrder2 = screen.queryByText(
+            "Question 2Question 1Question 3"
+        );
+        expect(originalOrder).toBeInTheDocument();
+        expect(originalOrder2).not.toBeInTheDocument();
+        const upButton = screen.getAllByTestId("move-up-button");
+        upButton[0].click();
+        expect(originalOrder).toBeInTheDocument();
+        upButton[1].click();
+        const newOrder = screen.queryByText("Question 2Question 1Question 3");
+        const newOrder2 = screen.queryByText("Question 1Question 2Question 3");
+        expect(newOrder).toBeInTheDocument();
+        expect(newOrder2).not.toBeInTheDocument();
+    });
+
+    test("Check to see if Move Down button works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const originalOrder = screen.queryByText(
+            "Question 1Question 2Question 3"
+        );
+        const originalOrder2 = screen.queryByText(
+            "Question 1Question 3Question 2"
+        );
+        expect(originalOrder).toBeInTheDocument();
+        expect(originalOrder2).not.toBeInTheDocument();
+        const upButton = screen.getAllByTestId("move-down-button");
+        upButton[2].click();
+        expect(originalOrder).toBeInTheDocument();
+        upButton[1].click();
+        const newOrder = screen.queryByText("Question 1Question 3Question 2");
+        const newOrder2 = screen.queryByText("Question 1Question 2Question 3");
+        expect(newOrder).toBeInTheDocument();
+        expect(newOrder2).not.toBeInTheDocument();
+    });
+
+    test("Check to see if editing the name field works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const questionTitleBox = screen.getAllByRole("textbox");
+        userEvent.type(questionTitleBox[1], "My New Question");
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const newAnswer = screen.getByText("Question 1My New Question❌");
+        expect(newAnswer).toBeInTheDocument();
+    });
+
+    test("Check to see if editing the points field works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const questionPointsBox = screen.getByRole("spinbutton");
+        userEvent.type(questionPointsBox, "9");
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const newPoints = screen.getByText("Number of Points: 1009");
+        expect(newPoints).toBeInTheDocument();
+        const oldPoints = screen.getAllByText("Number of Points: 100");
+        expect(oldPoints.length).toBe(2);
+    });
+
+    test("Check to see if editing the question field works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const questionBodyBox = screen.getAllByRole("textbox");
+        userEvent.type(questionBodyBox[2], "-Appended");
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const newPoints = screen.getByText("What is the best animal?-Appended");
+        expect(newPoints).toBeInTheDocument();
+        const oldPoints = screen.queryByText("What is the best animal?");
+        expect(oldPoints).not.toBeInTheDocument();
+    });
+
+    test("Check to see if you can add options to multiple choice", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const typeButton = screen.getByTestId("type-edit-button");
+        typeButton.click();
+        const questionBodyBox = screen.getAllByRole("textbox");
+        userEvent.type(questionBodyBox[3], ", third");
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const newOptionButtons = screen.getAllByRole("radio");
+        expect(newOptionButtons.length).toBe(11);
+    });
+
+    test("Check to see if editing the expected field works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const expectedBox = screen.getByTestId("expected-edit-box");
+        userEvent.type(expectedBox, "EXTRA");
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const originalAnswer = screen.getByText("Question 1❌");
+        expect(originalAnswer).toBeInTheDocument();
+        const textBox = screen.getByRole("textbox");
+        userEvent.type(textBox, "orcaEXTRA");
+        const newAnswer = screen.getByText("Question 1✅");
+        expect(newAnswer).toBeInTheDocument();
+    });
+
+    test("Check to make sure the Cancel button works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const cancelButton = screen.getByTestId("cancel-button");
+        cancelButton.click();
+        const allTextBoxes = screen.getAllByRole("textbox");
+        expect(allTextBoxes.length).toBe(1);
+    });
 });

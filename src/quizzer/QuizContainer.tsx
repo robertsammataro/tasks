@@ -64,7 +64,7 @@ export function QuizContainer({
              *      - Description
              *      - Total possible points for quiz
              */}
-
+            {questions.map((question: Question) => question.name)}
             <hr></hr>
             <Form.Group as={Row}>
                 <Col
@@ -109,7 +109,6 @@ export function QuizContainer({
                     </Button>
                 </Col>
             </Form.Group>
-
             {/** Actually renders the QuizResponse objects as long as the state
              *   is set to visible.
              */}
