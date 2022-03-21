@@ -1,8 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Quizzer } from "./Quizzer";
 import { Question } from "../interfaces/question";
-import { Quiz } from "../interfaces/quiz";
 import { QuizResponse } from "./QuizResponse";
 import userEvent from "@testing-library/user-event";
 
@@ -13,28 +11,6 @@ const animalQuestion: Question = {
     type: "short_answer_question",
     options: ["orca", "other"],
     expected: "orca",
-    points: 100,
-    published: false
-};
-
-const pokemonQuestion: Question = {
-    id: 2,
-    name: "Question 2",
-    body: "What is Robby's favorite pokemon?",
-    type: "multiple_choice_question",
-    options: ["lugia", "pikachu", "arcanine", "ditto"],
-    expected: "lugia",
-    points: 100,
-    published: false
-};
-
-const shapeQuestion: Question = {
-    id: 3,
-    name: "Question 3",
-    body: "What shape has three sides?",
-    type: "multiple_choice_question",
-    options: ["square", "circle", "triangle", "octagon"],
-    expected: "triangle",
     points: 100,
     published: false
 };
