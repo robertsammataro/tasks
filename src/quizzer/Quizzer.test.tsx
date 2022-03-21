@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { Quizzer } from "./Quizzer";
 import { Question } from "../interfaces/question";
 import { Quiz } from "../interfaces/quiz";
+import userEvent from "@testing-library/user-event";
 
 const animalQuestion: Question = {
     id: 1,
@@ -150,6 +151,54 @@ describe("Quizzer Tests", () => {
         expect(question1).not.toBeInTheDocument();
         expect(question2).toBeInTheDocument();
         expect(question3).toBeInTheDocument();
+    });
+
+    test("Check to see if editing the name field works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const questionTitleBox = screen.getAllByRole("textbox");
+        userEvent.type(questionTitleBox[1], "My New Question");
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const newAnswer = screen.getByText("Question 1My New Question❌");
+        expect(newAnswer).toBeInTheDocument();
+    });
+
+    test("Check to see if the published button works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const quizResponses = screen.getAllByTestId("quiz-response");
+        expect(quizResponses.length).toBe(3);
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const publishedButton = screen.getByTestId("published-edit-button");
+        publishedButton.click();
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const unpublishedButton = screen.getByTestId("filter-published-button");
+        unpublishedButton.click();
+        const secondQuizResponses = screen.getAllByTestId("quiz-response");
+        expect(secondQuizResponses.length).toBe(1);
+        unpublishedButton.click();
+        const thirdQuizResponses = screen.getAllByTestId("quiz-response");
+        expect(thirdQuizResponses.length).toBe(3);
+    });
+
+    test("Check to see if chaning the type of question works", () => {
+        const showButton = screen.getByTestId("visible-button");
+        showButton.click();
+        const editButton = screen.getAllByTestId("edit-button");
+        editButton[0].click();
+        const typeButton = screen.getByTestId("type-edit-button");
+        typeButton.click();
+        const onScreenTextboxes = screen.getAllByRole("textbox");
+        expect(onScreenTextboxes.length).toBe(5);
+        const saveButton = screen.getByTestId("save-button");
+        saveButton.click();
+        const optionButtons = screen.getAllByRole("radio");
+        expect(optionButtons.length).toBe(10);
     });
 
     {
